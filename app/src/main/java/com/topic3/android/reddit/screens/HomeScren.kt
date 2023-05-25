@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.topic3.android.reddit.R
@@ -143,3 +144,8 @@ private fun TrendingTopic(trendingTopic: TrendingTopicModel){
         }
     })
 }
+
+@Preview
+@Composable
+private fun TrendingTopicsPreview(){
+    TrendingTopics(trendingTopics = com.topic3.android.reddit.screens.trendingItems)
