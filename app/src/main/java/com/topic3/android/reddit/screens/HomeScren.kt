@@ -9,6 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.topic3.android.reddit.R
 import com.topic3.android.reddit.components.JoinedToast
 import com.topic3.android.reddit.components.TextPost
@@ -19,6 +20,7 @@ import com.topic3.android.reddit.screens.TrendingTopicModel
 import com.topic3.android.reddit.screens.TrendingTopics
 import com.topic3.android.reddit.screens.mapHomeScreenItems
 import com.topic3.android.reddit.viewmodel.MainViewModel
+import com.topic3.android.reddit.views.TrendingTopicView
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -131,3 +133,13 @@ private data class TrendingTopicModel(
     val text: String,
     @DrawableRes val imageRes: Int = 0
 )
+
+@Composable
+private fun TrendingTopic(trendingTopic: TrendingTopicModel){
+    AndroidView({context ->
+        TrendingTopicView(context).apply {
+            text = trendingTopic.text
+            image  = trendingTopic.imageRes
+        }
+    })
+}
