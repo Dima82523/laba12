@@ -149,3 +149,16 @@ private fun TrendingTopic(trendingTopic: TrendingTopicModel){
 @Composable
 private fun TrendingTopicsPreview(){
     TrendingTopics(trendingTopics = com.topic3.android.reddit.screens.trendingItems)
+}
+
+@Preview(showBackground = true)
+@Composable
+
+private fun TrendingTopicPreview() {
+    com.topic3.android.reddit.screens.TrendingTopic(
+        trendingTopic = com.topic3.android.reddit.screens.TrendingTopicModel(
+            "Compose Animations",
+            R.drawable.jetpack_compose_animations
+        )
+    )
+}
