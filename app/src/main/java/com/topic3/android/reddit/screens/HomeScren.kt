@@ -1,3 +1,4 @@
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -98,3 +99,35 @@ fun HomeScreen(viewModel: MainViewModel) {
         }
     }
 }
+
+private fun mapHomeScreenItems(
+    posts: List<PostModel>
+):List<HomeScreenItem>{
+    val homeScreenItems= mutableListOf<HomeScreenItem>()
+
+    homeScreenItems.add(
+        HomeScreenItem(HomeScreenItemType.TRENDING)
+    )
+
+    posts.forEach{post->
+        homeScreenItems.add(
+            HomeScreenItem(HomeScreenItemType.POST, post)
+        )
+    }
+    return homeScreenItems
+}
+
+private data class HomeScreenItem(
+    val type: HomeScreenItemType,
+    val post: PostModel? = null
+)
+
+private enum class HomeScreenItemType{
+    TRENDING,
+    POST
+}
+
+private data class TrendingTopicModel(
+    val text: String,
+    @DrawableRes val imageRes: Int = 0
+)
