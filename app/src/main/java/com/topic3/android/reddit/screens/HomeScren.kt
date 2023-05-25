@@ -2,12 +2,21 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -161,4 +170,56 @@ private fun TrendingTopicPreview() {
             R.drawable.jetpack_compose_animations
         )
     )
+}
+
+@Composable
+
+private fun TrendingTopics(
+    trendingTopics: List<TrendingTopicModel>,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        shape = MaterialTheme.shapes.large,
+        modifier = modifier
+    ){
+        Column(modifier = Modifier.padding(vertical = 8.dp)) {
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(
+                    modifier = Modifier.size(18.dp),
+                    imageVector = Icons.Filled.Star,
+                    tint = Color.Blue,
+                    contentDescription = "Star Icon"
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Trending Today",
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            LazyRow(
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    top = 8.dp,
+                    end = 16.dp
+                ),
+                content = {
+                    itemsIndexed(
+                        items = trendingTopics,
+                        itemContent = {index,
+                                       trendingModel ->
+                            com.topic3.android.reddit.screens.TrendingTopic(trendingModel)
+                            if (index != trendingTopics.lastIndex){
+                                Spacer(modifier = Modifier.width(8.dp))
+                            }
+                        }
+                    )
+                }
+            )
+        }
+    }
 }
